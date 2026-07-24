@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://uvwlbaj5g4oh"]
+
+[ext_resource type="PackedScene" uid="uid://cvk7xaya2lauj" path="res://characters/moving_char.tscn" id="1_nfsgp"]
+[ext_resource type="Texture2D" uid="uid://4k78m31i8pp8" path="res://assets/characters/goblin.png" id="2_eooei"]
+[ext_resource type="Script" path="res://characters/scripts/turn_movement_logic.gd" id="3_tml"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0m2rm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_eooei")
+}],
+"loop": 1,
+"name": &"goblin",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0m2rm"]
+radius = 21.0
+height = 84.0
+
+[node name="MonsterSmall" type="Node2D" unique_id=2043004560]
+
+[node name="MovingChar" parent="." unique_id=947459933 instance=ExtResource("1_nfsgp")]
+
+[node name="TurnMovementLogic" type="Node2D" parent="."]
+script = ExtResource("3_tml")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1955997417]
+sprite_frames = SubResource("SpriteFrames_0m2rm")
+animation = &"goblin"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=275461752]
+shape = SubResource("CapsuleShape2D_0m2rm")
