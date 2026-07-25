@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://cgc1rrcfblls"]
+
+[ext_resource type="PackedScene" uid="uid://buicoqf4wvjep" path="res://maps/dungeon.tscn" id="1_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://be7p6mbuhfcv3" path="res://characters/player.tscn" id="2_player"]
+
+[node name="Main" type="Node2D" unique_id=1779997282]
+
+[node name="Dungeon" parent="." unique_id=817558870 instance=ExtResource("1_0xm2m")]
+
+[node name="Player" parent="." unique_id=387700998 instance=ExtResource("2_player")]
+position = Vector2(800, 500)

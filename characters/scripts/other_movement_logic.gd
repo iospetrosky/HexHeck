@@ -6,21 +6,15 @@ class_name TurnMovementLogic
 ## destination via take_turn(); it just forwards that to MovingChar and
 ## reports back when the move is done.
 
-signal turn_finished
-
-@export var moving_char_path: NodePath = ^"../MovingChar"
+@export var moving_char_path: NodePath = "" #assign in GoDot
 
 var _moving_char: MovingChar
 
-
 func _ready() -> void:
 	_moving_char = get_node(moving_char_path)
-	_moving_char.movement_finished.connect(_on_movement_finished)
 
 
 func take_turn(target: Vector2) -> void:
 	_moving_char.move_to(target)
 
 
-func _on_movement_finished() -> void:
-	turn_finished.emit()

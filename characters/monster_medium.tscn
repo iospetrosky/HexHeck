@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cvk7xaya2lauj" path="res://characters/moving_char.tscn" id="1_dj55s"]
 [ext_resource type="Texture2D" uid="uid://dpgrmm3pehyar" path="res://assets/characters/troll.png" id="2_dj55s"]
-[ext_resource type="Script" path="res://characters/scripts/turn_movement_logic.gd" id="3_tml"]
+[ext_resource type="Script" uid="uid://vy47bu4do2gg" path="res://characters/scripts/other_movement_logic.gd" id="3_tml"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0m2rm"]
 animations = [{
@@ -19,12 +19,13 @@ animations = [{
 radius = 36.0
 height = 146.0
 
-[node name="MonsterSmall" type="Node2D" unique_id=2043004560]
+[node name="MonsterSmall" type="CharacterBody2D" unique_id=1874789421]
 
 [node name="MovingChar" parent="." unique_id=947459933 instance=ExtResource("1_dj55s")]
 
-[node name="TurnMovementLogic" type="Node2D" parent="."]
+[node name="MonsterMovementLogic" type="Node2D" parent="." unique_id=1583596272]
 script = ExtResource("3_tml")
+moving_char_path = NodePath("../MovingChar")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1955997417]
 sprite_frames = SubResource("SpriteFrames_0m2rm")
