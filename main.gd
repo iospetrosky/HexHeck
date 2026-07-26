@@ -3,7 +3,7 @@ extends Node2D
 Keeping track of branches
 main: basically all AI generated - dev stopped becuase I was not learning
 -> slow: a slow approach, function by function, to understand the connections
-   of the nodes
+   of the nodes - implements the turn based concept
    -> take_turns: current, to implement the turns
 
 """
