@@ -6,24 +6,24 @@ class_name MovingChar
 ## sibling "movement logic" node (see player_movement_logic.gd /
 ## other_movement_logic.gd) calling move_to().
 
-#signal movement_finished
+signal movement_finished
 
 
 @export var move_speed: float = 300.0 # pixels per second
 
 var is_moving: bool = false
-
+var identity: String = "Undefined"
 var _target: Vector2
 var _move_points: float = 128.0 #movement points, assigned when the movement starts
-var _points_owner: Object
+var _caller: Object
 
 
-func move_to(target: Vector2, points: float, points_owner: Object = null) -> void:
-	if is_moving:
+func move_to(target: Vector2, points: float, caller: Object = null) -> void:
+	if is_moving or points == 0:
 		return
 	_target = target
 	_move_points = points
-	_points_owner = points_owner
+	_caller = caller
 	is_moving = true
 
 func _physics_process(delta: float) -> void:
@@ -41,14 +41,16 @@ func _physics_process(delta: float) -> void:
 	print(_move_points)
 
 	var collision := body.move_and_collide(motion)
+	var reached := collision or body.position.is_equal_approx(_target)
+	var out_of_points := _move_points <= 0
 
-	if collision or body.position.is_equal_approx(_target):
+	if reached or out_of_points:
 		is_moving = false
-		if _points_owner:
-			_points_owner.movement_points = _move_points
+		# Players keep unspent points to continue moving within the same
+		# turn; everyone else's turn ends as soon as they stop.
+		var turn_over := out_of_points or identity != 'PLAYER'
 
-	if _move_points <= 0:
-		is_moving = false
-		if _points_owner:
-			_points_owner.movement_points = 0
-		#movement_finished.emit()
+		if _caller:
+			_caller.movement_points = 0.0 if turn_over else _move_points
+		if turn_over:
+			movement_finished.emit()

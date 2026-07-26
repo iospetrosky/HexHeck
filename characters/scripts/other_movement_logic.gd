@@ -12,9 +12,9 @@ var _moving_char: MovingChar
 
 func _ready() -> void:
 	_moving_char = get_node(moving_char_path)
+	_moving_char.identity = 'MONSTER' #the creator of the instance can be more specific
 
 
-func take_turn(target: Vector2) -> void:
-	_moving_char.move_to(target)
-
-
+func take_turn(target: Vector2, player: CharacterBody2D) -> void:
+	pass
+	#_moving_char.move_to(target)

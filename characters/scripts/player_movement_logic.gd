@@ -1,7 +1,6 @@
 extends Node2D
 class_name PlayerMovementLogic
 
-const DEF_MOVE_POINTS = 128
 
 @export var moving_char_path: NodePath = "" #assign in GoDot
 
@@ -10,9 +9,9 @@ var movement_points: float
 
 
 func _ready() -> void:
-	movement_points = DEF_MOVE_POINTS
+	movement_points = 128
 	_moving_char = get_node(moving_char_path)
-
+	_moving_char.identity = 'PLAYER'
 
 
 func _unhandled_input(event: InputEvent) -> void:

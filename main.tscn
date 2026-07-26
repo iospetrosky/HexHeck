@@ -2,10 +2,13 @@
 
 [ext_resource type="PackedScene" uid="uid://buicoqf4wvjep" path="res://maps/dungeon.tscn" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://be7p6mbuhfcv3" path="res://characters/player.tscn" id="2_player"]
+[ext_resource type="Script" uid="uid://bc5miqx042qi3" path="res://main.gd" id="3_main"]
 
 [node name="Main" type="Node2D" unique_id=1779997282]
+script = ExtResource("3_main")
 
 [node name="Dungeon" parent="." unique_id=817558870 instance=ExtResource("1_0xm2m")]
+position = Vector2(-112, 1034)
 
 [node name="Player" parent="." unique_id=387700998 instance=ExtResource("2_player")]
 position = Vector2(800, 500)
