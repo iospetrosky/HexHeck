@@ -21,7 +21,7 @@ script = ExtResource("1_x0jl3")
 
 [node name="MovingChar" parent="." unique_id=947459933 instance=ExtResource("1_3eadt")]
 
-[node name="PlayerMovementLogic" type="Node2D" parent="." unique_id=1524398154]
+[node name="MovementLogic" type="Node2D" parent="." unique_id=1524398154]
 script = ExtResource("2_pml")
 moving_char_path = NodePath("../MovingChar")
 

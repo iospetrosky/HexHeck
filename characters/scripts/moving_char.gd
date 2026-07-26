@@ -15,15 +15,20 @@ var is_moving: bool = false
 var identity: String = "Undefined"
 var _target: Vector2
 var _move_points: float = 128.0 #movement points, assigned when the movement starts
-var _caller: Object
+var _movement_logic: Object
 
 
-func move_to(target: Vector2, points: float, caller: Object = null) -> void:
+func _ready() -> void:
+	# The movement logic driving us is always a sibling under our shared
+	# parent — either a PlayerMovementLogic or a TurnMovementLogic.
+	_movement_logic = get_parent().get_node("MovementLogic")
+
+
+func move_to(target: Vector2, points: float) -> void:
 	if is_moving or points == 0:
 		return
 	_target = target
 	_move_points = points
-	_caller = caller
 	is_moving = true
 
 func _physics_process(delta: float) -> void:
@@ -41,6 +46,8 @@ func _physics_process(delta: float) -> void:
 	print(_move_points)
 
 	var collision := body.move_and_collide(motion)
+	if collision:
+		print("collision")
 	var reached := collision or body.position.is_equal_approx(_target)
 	var out_of_points := _move_points <= 0
 
@@ -50,7 +57,7 @@ func _physics_process(delta: float) -> void:
 		# turn; everyone else's turn ends as soon as they stop.
 		var turn_over := out_of_points or identity != 'PLAYER'
 
-		if _caller:
-			_caller.movement_points = 0.0 if turn_over else _move_points
+		if _movement_logic:
+			_movement_logic.movement_points = 0.0 if turn_over else _move_points
 		if turn_over:
 			movement_finished.emit()

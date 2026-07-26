@@ -23,7 +23,7 @@ height = 146.0
 
 [node name="MovingChar" parent="." unique_id=947459933 instance=ExtResource("1_dj55s")]
 
-[node name="MonsterMovementLogic" type="Node2D" parent="." unique_id=1583596272]
+[node name="MovementLogic" type="Node2D" parent="." unique_id=1583596272]
 script = ExtResource("3_tml")
 moving_char_path = NodePath("../MovingChar")
 

@@ -7,6 +7,8 @@ class_name PlayerMovementLogic
 var _moving_char: MovingChar
 var movement_points: float
 
+func set_move_points(pp: float) -> void:
+	movement_points = pp
 
 func _ready() -> void:
 	movement_points = 128
@@ -16,5 +18,5 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		_moving_char.move_to(get_global_mouse_position(), movement_points, self)
+		_moving_char.move_to(get_global_mouse_position(), movement_points)
 		get_viewport().set_input_as_handled()
