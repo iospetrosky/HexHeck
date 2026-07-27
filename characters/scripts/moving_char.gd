@@ -13,22 +13,15 @@ signal movement_finished
 
 var is_moving: bool = false
 var identity: String = "Undefined"
+var move_points: float = 0.0 #the single source of truth for this character's remaining movement budget
+
 var _target: Vector2
-var _move_points: float = 128.0 #movement points, assigned when the movement starts
-var _movement_logic: Object
 
 
-func _ready() -> void:
-	# The movement logic driving us is always a sibling under our shared
-	# parent — either a PlayerMovementLogic or a TurnMovementLogic.
-	_movement_logic = get_parent().get_node("MovementLogic")
-
-
-func move_to(target: Vector2, points: float) -> void:
-	if is_moving or points == 0:
+func move_to(target: Vector2) -> void:
+	if is_moving or move_points <= 0:
 		return
 	_target = target
-	_move_points = points
 	is_moving = true
 
 func _physics_process(delta: float) -> void:
@@ -42,14 +35,14 @@ func _physics_process(delta: float) -> void:
 	var step := move_speed * delta
 	var motion := offset if offset.length() <= step else offset.normalized() * step
 
-	_move_points -= step
-	print(_move_points)
+	move_points -= step
+	#print(move_points)
 
 	var collision := body.move_and_collide(motion)
 	if collision:
-		print("collision")
+		print("collision - remaining points: ", move_points)
 	var reached := collision or body.position.is_equal_approx(_target)
-	var out_of_points := _move_points <= 0
+	var out_of_points := move_points <= 0
 
 	if reached or out_of_points:
 		is_moving = false
@@ -57,7 +50,6 @@ func _physics_process(delta: float) -> void:
 		# turn; everyone else's turn ends as soon as they stop.
 		var turn_over := out_of_points or identity != 'PLAYER'
 
-		if _movement_logic:
-			_movement_logic.movement_points = 0.0 if turn_over else _move_points
 		if turn_over:
+			move_points = 0.0
 			movement_finished.emit()
