@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c6s1wu6ce56u2" path="res://assets/characters/hero.png" id="1_dnjla"]
 [ext_resource type="Script" uid="uid://yf7hcumme2gp" path="res://characters/scripts/player.gd" id="1_x0jl3"]
 [ext_resource type="Script" uid="uid://blarc6lr8217a" path="res://characters/scripts/player_movement_logic.gd" id="2_pml"]
+[ext_resource type="Texture2D" uid="uid://bwld68pjfoijr" path="res://assets/characters/hero_dead.png" id="4_evndh"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6p3mc"]
 animations = [{
@@ -12,7 +13,15 @@ animations = [{
 "texture": ExtResource("1_dnjla")
 }],
 "loop": 1,
-"name": &"default",
+"name": &"warrior",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_evndh")
+}],
+"loop": 1,
+"name": &"warrior_dead",
 "speed": 5.0
 }]
 
@@ -27,6 +36,7 @@ moving_char_path = NodePath("../MovingChar")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1206111218]
 sprite_frames = SubResource("SpriteFrames_6p3mc")
+animation = &"warrior"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1652715701]
 polygon = PackedVector2Array(3, -52, 11, -47, 9, -33, 15, -18, 22, -11, 30, 0, 15, 8, 18, 41, 30, 53, 2, 55, -5, 30, -17, 57, -32, 55, -25, 9, -36, -3, -24, -31, -6, -52)

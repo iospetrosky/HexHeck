@@ -3,15 +3,42 @@
 [ext_resource type="PackedScene" uid="uid://cvk7xaya2lauj" path="res://characters/moving_char.tscn" id="1_nfsgp"]
 [ext_resource type="Texture2D" uid="uid://4k78m31i8pp8" path="res://assets/characters/goblin.png" id="2_eooei"]
 [ext_resource type="Script" uid="uid://vy47bu4do2gg" path="res://characters/scripts/other_movement_logic.gd" id="3_tml"]
+[ext_resource type="Texture2D" uid="uid://bedvqjd41ils8" path="res://assets/characters/gnome.png" id="3_vpnvt"]
+[ext_resource type="Texture2D" uid="uid://craccfenbxs0i" path="res://assets/characters/gnome_dead.png" id="4_ep1xb"]
+[ext_resource type="Texture2D" uid="uid://bsvndgt84asjm" path="res://assets/characters/goblin_dead.png" id="4_uibf0"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0m2rm"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_vpnvt")
+}],
+"loop": 1,
+"name": &"gnome",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_ep1xb")
+}],
+"loop": 1,
+"name": &"gnome_dead",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_eooei")
 }],
 "loop": 1,
 "name": &"goblin",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_uibf0")
+}],
+"loop": 1,
+"name": &"goblin_dead",
 "speed": 5.0
 }]
 
@@ -29,7 +56,7 @@ moving_char_path = NodePath("../MovingChar")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1955997417]
 sprite_frames = SubResource("SpriteFrames_0m2rm")
-animation = &"goblin"
+animation = &"gnome_dead"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=275461752]
 shape = SubResource("CapsuleShape2D_0m2rm")

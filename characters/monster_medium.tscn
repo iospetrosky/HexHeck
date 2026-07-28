@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cvk7xaya2lauj" path="res://characters/moving_char.tscn" id="1_dj55s"]
 [ext_resource type="Texture2D" uid="uid://dpgrmm3pehyar" path="res://assets/characters/troll.png" id="2_dj55s"]
 [ext_resource type="Script" uid="uid://vy47bu4do2gg" path="res://characters/scripts/other_movement_logic.gd" id="3_tml"]
+[ext_resource type="Texture2D" uid="uid://b6fuyba4j3st2" path="res://assets/characters/troll_dead.png" id="4_ry6xv"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0m2rm"]
 animations = [{
@@ -12,6 +13,14 @@ animations = [{
 }],
 "loop": 1,
 "name": &"troll",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_ry6xv")
+}],
+"loop": 1,
+"name": &"troll_dead",
 "speed": 5.0
 }]
 
@@ -29,7 +38,7 @@ moving_char_path = NodePath("../MovingChar")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1955997417]
 sprite_frames = SubResource("SpriteFrames_0m2rm")
-animation = &"troll"
+animation = &"troll_dead"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=275461752]
 shape = SubResource("CapsuleShape2D_0m2rm")
