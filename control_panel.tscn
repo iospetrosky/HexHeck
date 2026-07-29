@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://ctu3ms0yia3nb"]
+
+[ext_resource type="Script" uid="uid://cb6mfx080nt6e" path="res://scripts/control_panel.gd" id="1_hud"]
+[ext_resource type="FontFile" uid="uid://usjmdu6lj5xu" path="res://assets/fonts/urema.ttf" id="2_uoxlx"]
+
+[sub_resource type="Theme" id="Theme_0m2rm"]
+default_font = ExtResource("2_uoxlx")
+default_font_size = 27
+
+[node name="HUD" type="CanvasLayer" unique_id=1867487121]
+script = ExtResource("1_hud")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=7900928]
+offset_right = 1601.0
+offset_bottom = 116.0
+theme = SubResource("Theme_0m2rm")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1626084856]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="label_hit_points" type="Label" parent="MarginContainer/HBoxContainer" unique_id=557411182]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 2
+text = "Hit points"
+horizontal_alignment = 1
+
+[node name="label_armor_class" type="Label" parent="MarginContainer/HBoxContainer" unique_id=648622574]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 2
+text = "Armor class"
+horizontal_alignment = 1
+
+[node name="label_strength" type="Label" parent="MarginContainer/HBoxContainer" unique_id=2132377781]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 2
+text = "Strength"
+horizontal_alignment = 1

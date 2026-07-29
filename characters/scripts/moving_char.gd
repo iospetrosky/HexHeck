@@ -7,7 +7,8 @@ class_name MovingChar
 ## other_movement_logic.gd) calling move_to().
 
 signal movement_finished
-
+signal health_changed(current: int, max: int)
+#signal stats_changed(stats: Dictionary)
 
 @export var move_speed: float = 300.0 # pixels per second
 
@@ -15,6 +16,7 @@ var is_moving: bool = false
 var identity: String = "Undefined"
 var move_points: float = 0.0 #the single source of truth for this character's remaining movement budget
 var hit_points: int = 20
+var max_hit_points: int = 20
 var armor_class: int = 5
 
 var _target: Vector2
@@ -35,6 +37,10 @@ const COST_PICKUP = 10 #per action, so picking 200 coins costs 10
 func _ready() -> void:
 	(get_parent() as CanvasItem).z_index = Z_INDEX_ALIVE
 
+func suffer_hit(hp: int) -> void:
+	hit_points = max(hit_points - hp, 0)
+	if identity == 'PLAYER':
+		health_changed.emit(hit_points, max_hit_points) 
 
 func attack(defender: MovingChar) -> bool:
 	var roll := randi_range(1, 20)
@@ -43,8 +49,8 @@ func attack(defender: MovingChar) -> bool:
 		return false
 
 	var damage := randi_range(1, 8)
-	defender.hit_points -= damage
-	print("Attack successfull for ", damage)
+	defender.suffer_hit(damage)
+	print("Attack successfull for damage: ", damage)
 	if defender.hit_points <= 0:
 		var body := defender.get_parent() as CharacterBody2D
 		var sprite := body.get_node("AnimatedSprite2D") as AnimatedSprite2D
@@ -86,8 +92,6 @@ func _physics_process(delta: float) -> void:
 	#print(move_points)
 
 	var collision := body.move_and_collide(motion)
-	# if collision:
-	# 	print("collision - remaining points: ", move_points)
 
 	if identity == 'PLAYER':
 		if move_points <= 0.0:

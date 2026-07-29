@@ -27,8 +27,10 @@ const MONSTER_COUNT := 5
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	the_player.get_node("MovingChar").movement_finished.connect(_on_movement_finished.bind(the_player))
-	the_player.get_node("MovingChar").move_points = DEF_MOVE_POINTS
+	var player_moving_char: MovingChar = the_player.get_node("MovingChar")
+	player_moving_char.movement_finished.connect(_on_movement_finished.bind(the_player))
+	player_moving_char.move_points = DEF_MOVE_POINTS
+	$HUD.connect_to_player(player_moving_char)
 	_spawn_monsters()
 
 
